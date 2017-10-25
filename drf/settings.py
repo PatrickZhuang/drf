@@ -119,4 +119,5 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'common.pagination.CustomPagination',
     'PAGE_SIZE': 5,
+    'EXCEPTION_HANDLER': 'common.exception.custom_exception_handler',
 }
