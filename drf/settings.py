@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'oauth2_provider',
     'quickstart',
     'common',
 ]
@@ -117,6 +118,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
+    # 使用auth2鉴权
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+    # 仅鉴权通过才能访问api，默认是AllowAny
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'common.pagination.CustomPagination',
     'PAGE_SIZE': 5,
     'EXCEPTION_HANDLER': 'common.exception.custom_exception_handler',
