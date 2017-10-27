@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -122,10 +122,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
-    # 仅鉴权通过才能访问api，默认是AllowAny
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+    # # 仅鉴权通过才能访问api，默认是AllowAny
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    # 设置访问频率
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
     ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/minute',
+        'user': '10/minute',
+    },
     'DEFAULT_PAGINATION_CLASS': 'common.pagination.CustomPagination',
     'PAGE_SIZE': 5,
     'EXCEPTION_HANDLER': 'common.exception.custom_exception_handler',

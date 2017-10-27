@@ -1,5 +1,5 @@
 # Create your views here.
-from rest_framework import views, status, generics, viewsets
+from rest_framework import views, status, generics, viewsets, filters
 from rest_framework.response import Response
 
 from quickstart import serializers
@@ -49,3 +49,6 @@ class NewsViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.NewsSerializer
     # 可以用于控制可以接受的http方法
     http_method_names = ['get', 'post', 'put', 'patch', 'delete']
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    # ordering_fields = '__all__'
+    search_fields = ('title', 'content')
